@@ -141,8 +141,7 @@ class Dashboard extends AbstractWidget
 
         $results = $this->getDb()->select((new Select())
             ->columns('*')
-            ->from('dashboard')
-        );
+            ->from('dashboard'));
 
         foreach ($results as $dashboard) {
             $dashboards[$dashboard->name] = new Pane($dashboard->name);
@@ -152,8 +151,7 @@ class Dashboard extends AbstractWidget
             $newResults = $this->getDb()->select((new Select())
                 ->columns('*')
                 ->from('dashlet')
-                ->where(['dashboard_id = ?' => $dashboard->id, 'dashlet.owner = ?' => $user->getUsername()])
-            );
+                ->where(['dashboard_id = ?' => $dashboard->id, 'dashlet.owner = ?' => $user->getUsername()]));
 
             foreach ($newResults as $dashletData) {
                 $dashlet = new DashboardDashlet(
